@@ -9,7 +9,7 @@ Running The App
   ``go run ./cmd/web/*.go `` 
 
 - React + Vite Frontend - run in readinglist-ui directory \
-  ``npm i``
+  ``npm i`` \
   ``npm run dev``
 
 

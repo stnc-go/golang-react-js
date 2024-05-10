@@ -24,14 +24,11 @@ dummy/
 src/github.com/
 src/golang.org/
 src/gopkg.in/
-publicProje/
 deploy
 main
-Archive.zip
 Versions/extract/
 # templates/silmeSakin/
 config.yml
-
 .DS_Store
 .env
 static.tar.gz
