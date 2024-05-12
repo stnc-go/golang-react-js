@@ -22,7 +22,6 @@ func main() {
 	}
 
 	var cfg api.Config
-	// dfdsfdsf
 
 	dbHost := os.Getenv("DB_HOST")
 	dbPort := os.Getenv("DB_PORT")
@@ -32,7 +31,7 @@ func main() {
 
 	cfg.Dsn = fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", dbUser, dbPassword, dbHost, dbPort, dbName)
 
-	flag.IntVar(&cfg.Port, "port", 3001, "API server port")
+	flag.IntVar(&cfg.Port, "port", 3000, "API server port")
 	flag.StringVar(&cfg.Env, "env", "dev", "Environment (dev|stage|prod)")
 	flag.Parse()
 
