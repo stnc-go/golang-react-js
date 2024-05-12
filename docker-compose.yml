@@ -1,20 +1,11 @@
 
-### eklenecek onemli 
-
-#https://articles.wesionary.team/dockerize-a-golang-applications-with-mysql-and-phpmyadmin-hot-reloading-included-86eb7a6cf8d5
-# http://mysqltopgsql.com/post/unicode/   https://ahmetimamoglu.com.tr/postgresql-turkce-karakter-hatasinin-cozumleri
-# https://towardsdatascience.com/how-to-run-postgresql-using-docker-15bf87b452d4
-# https://levelup.gitconnected.com/creating-and-filling-a-postgres-db-with-docker-compose-e1607f6f882f   ıcınde create tanble ornegi var 
-# https://firehydrant.com/blog/develop-a-go-app-with-docker-compose
-#https://www.callicoder.com/docker-golang-image-container-example/
-#https://firehydrant.com/blog/develop-a-go-app-with-docker-compose/   buradan devam et 
 
 
 # docker-compose up -d --build
-# docker da terminali ac
+# open docker desktop in postresql container 
 # cd /data/postgres
 # echo "host all all all $POSTGRES_HOST_AUTH_METHOD" >> pg_hba.conf
-#pgadmine girilecek hostname adi localhost degil -> postgres_container olacak aynisi adminer icinde gecerli 
+#pgadmine localhostname (hostname) is not localhost  -> postgres_container  --- same thing adminer 
 
 
 # docker run -v "C:/:/mnt/c/" -it mcr.microsoft.com/powershell:latest
@@ -39,25 +30,23 @@ services:
     # target: dev
     environment:
       API_SERVER_ADDR: ":3000"
-      DATABASE_URL: postgres://local-dev@db/api?sslmode=disable
+      DATABASE_URL: postgres://postgres_container@db/react?sslmode=disable
       VIRTUAL_HOST: app.example.com
 
     env_file:
       - .env
     ports:
       - "3000:3000"
+      - "3001:3001"
     volumes:
        - .:/app:rw,delegated
-    command: air ./cmd/api/main.go -b 0.0.0.0
-    working_dir: /app  
-    # ports:
-    #  - 8181:8181
-    #  - 2345:2345
+    command: air ./app/cmd/api/main.go -b 0.0.0.0
+    working_dir: /app
     
     networks:
     - backend
 
-
+  # https://github.com/golang-migrate/migrate/blob/master/database/postgres/TUTORIAL.md
   migrate: &basemigrate
     profiles: ["tools"]
     image: migrate/migrate
@@ -72,8 +61,6 @@ services:
     <<: *basemigrate
     entrypoint: migrate create -dir /tmp/migrations -ext sql
     command: ""
-  # https://github.com/golang-migrate/migrate/blob/master/database/postgres/TUTORIAL.md
-
 
   postgres:
     container_name: postgres_container
@@ -140,8 +127,6 @@ services:
       - backend
 
 
-
-
   redis-commander:
     container_name: redis-commander
     hostname: redis-commander
@@ -157,7 +142,6 @@ services:
       - backend
     depends_on:
       - redis
-
 
 
   adminer:

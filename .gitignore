@@ -10,6 +10,9 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+
+*.env
+
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
 .vscode/
@@ -27,10 +30,8 @@ src/gopkg.in/
 deploy
 main
 Versions/extract/
-# templates/silmeSakin/
 config.yml
 .DS_Store
-.env
 static.tar.gz
 view.tar.gz
 gin.log
